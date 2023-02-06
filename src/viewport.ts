@@ -1,6 +1,5 @@
 import { mat3 } from 'gl-matrix';
-
-import { WorldInterface } from '../../dist/types';
+import { WorldInterface } from 'rb-phys2d';
 
 import {
   MOUSE_PICKING_CONTROL_DEFAULTS,
