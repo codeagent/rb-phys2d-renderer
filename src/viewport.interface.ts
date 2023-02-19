@@ -1,4 +1,4 @@
-import { mat3, vec2 } from 'gl-matrix';
+import { mat3 } from 'gl-matrix';
 import { WorldInterface } from 'rb-phys2d';
 
 import { MousePickingControlDef } from './mouse-picking-control';
@@ -17,4 +17,6 @@ export interface ViewportInterface {
   addViewportAdjustingControl(
     options?: Partial<ViewportAdjustingControlDef>
   ): ViewportInterface;
+
+  update(): void;
 }

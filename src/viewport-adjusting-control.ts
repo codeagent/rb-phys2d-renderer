@@ -39,8 +39,8 @@ export class ViewportAdjustingControl {
   private readonly onTouchUpHandler = this.onTouchUp.bind(this);
 
   constructor(
-    public readonly viewport: Readonly<ViewportInterface>,
-    public readonly options: Readonly<ViewportAdjustingControlDef>
+    readonly viewport: Readonly<ViewportInterface>,
+    readonly options: Readonly<ViewportAdjustingControlDef>
   ) {
     if (isTouchDevice()) {
       this.viewport.canvas.addEventListener(
@@ -57,6 +57,8 @@ export class ViewportAdjustingControl {
 
     this.width = options.width;
     vec2.copy(this.origin, options.origin);
+
+    this.createProjection();
   }
 
   destroy(): void {
@@ -72,6 +74,19 @@ export class ViewportAdjustingControl {
     self.document.removeEventListener('touchmove', this.onTouchMoveHandler);
     self.document.removeEventListener('mouseup', this.onMouseUpHandler);
     self.document.removeEventListener('touchend', this.onTouchUpHandler);
+  }
+
+  createProjection(): void {
+    const aspect = this.viewport.canvas.width / this.viewport.canvas.height;
+    const height = this.width / aspect;
+
+    ortho(
+      this.viewport.projection,
+      -this.width * 0.5 - this.origin[0],
+      this.width * 0.5 - this.origin[0],
+      -height * 0.5 - this.origin[1],
+      height * 0.5 - this.origin[1]
+    );
   }
 
   private onMouseDown(e: MouseEvent): void {
@@ -174,19 +189,6 @@ export class ViewportAdjustingControl {
 
       e.stopImmediatePropagation();
     }
-  }
-
-  private createProjection(): void {
-    const aspect = this.viewport.canvas.width / this.viewport.canvas.height;
-    const height = this.width / aspect;
-
-    ortho(
-      this.viewport.projection,
-      -this.width * 0.5 - this.origin[0],
-      this.width * 0.5 - this.origin[0],
-      -height * 0.5 - this.origin[1],
-      height * 0.5 - this.origin[1]
-    );
   }
 
   private onWheel(event: WheelEvent): void {

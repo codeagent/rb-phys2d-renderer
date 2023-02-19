@@ -36,9 +36,9 @@ export class MousePickingControl implements MouseControlInterface {
   private readonly onTouchUpHandler = this.onTouchUp.bind(this);
 
   constructor(
-    public readonly viewport: Readonly<ViewportInterface>,
-    public readonly world: Readonly<WorldInterface>,
-    public readonly options: MousePickingControlDef
+    readonly viewport: Readonly<ViewportInterface>,
+    readonly world: Readonly<WorldInterface>,
+    readonly options: MousePickingControlDef
   ) {
     if (isTouchDevice()) {
       this.viewport.canvas.addEventListener(
@@ -148,7 +148,7 @@ export class MousePickingControl implements MouseControlInterface {
     this.joint = this.body = null;
   }
 
-  private onMouseMove(e: MouseEvent) {
+  private onMouseMove(e: MouseEvent): void {
     const { x, y } = this.viewport.canvas.getBoundingClientRect();
 
     vec2.set(this.cursor, e.clientX - x, e.clientY - y);

@@ -89,8 +89,8 @@ export class WorldRenderer implements RendererInterface {
   private pivot: Geometry;
 
   constructor(
-    public readonly viewport: Readonly<ViewportInterface>,
-    public readonly world: Readonly<WorldInterface>
+    readonly viewport: Readonly<ViewportInterface>,
+    readonly world: Readonly<WorldInterface>
   ) {
     this.createDevice();
     this.createShaders();

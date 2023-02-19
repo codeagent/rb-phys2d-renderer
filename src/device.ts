@@ -38,7 +38,7 @@ interface Mat4 {
 export type ProgramVariable = Vec4 | Mat4;
 
 export class Device {
-  constructor(public readonly gl: Readonly<WebGL2RenderingContext>) {
+  constructor(readonly gl: Readonly<WebGL2RenderingContext>) {
     this.gl.clearColor(1.0, 1.0, 1.0, 1.0);
     this.gl.lineWidth(1);
     this.gl.disable(WebGL2RenderingContext.DEPTH_TEST);
@@ -191,7 +191,7 @@ export class Device {
     }
   }
 
-  drawGeometry(geometry: Geometry) {
+  drawGeometry(geometry: Geometry): void {
     this.gl.bindVertexArray(geometry.vao);
     this.gl.bindBuffer(
       WebGL2RenderingContext.ELEMENT_ARRAY_BUFFER,

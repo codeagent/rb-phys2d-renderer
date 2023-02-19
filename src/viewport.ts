@@ -17,15 +17,15 @@ import {
 import { ViewportInterface } from './viewport.interface';
 
 export class Viewport implements ViewportInterface {
-  public readonly projection = mat3.create();
+  readonly projection = mat3.create();
 
-  public readonly context: WebGL2RenderingContext;
+  readonly context: WebGL2RenderingContext;
 
   private mousePickingControl: MousePickingControl;
 
   private viewportAdjustingControl: ViewportAdjustingControl;
 
-  constructor(public readonly canvas: HTMLCanvasElement) {
+  constructor(readonly canvas: HTMLCanvasElement) {
     this.context = canvas.getContext('webgl2', {
       depth: false,
     });
@@ -77,6 +77,12 @@ export class Viewport implements ViewportInterface {
     if (this.viewportAdjustingControl) {
       this.viewportAdjustingControl.destroy();
       this.viewportAdjustingControl = null;
+    }
+  }
+
+  update(): void {
+    if (this.viewportAdjustingControl) {
+      this.viewportAdjustingControl.createProjection();
     }
   }
 }
